@@ -793,13 +793,13 @@ Input, textarea : 16px/1.5 'Roboto-Ragular', Arial, sans-serif;
 #rev_slider_1 .btn2,
 #rev_slider_1 .btn1 {
   font-family: Roboto-Regular;
-  font-size: 14px !important;
+  font-size: 50px !important;
   text-transform: uppercase;
 
-  width: 150px;
+  width: auto;
   height: 50px;
-  padding: 5px 15px !important;
-  margin: 5px !important;
+  padding: 10px 30px !important;
+  margin: 10px !important;
 
   -webkit-transition: all 0.2s !important;
   -o-transition: all 0.2s !important;
@@ -3047,3 +3047,4 @@ input.num-product::-webkit-inner-spin-button {
 @media (max-width: 480px) {
   
 }
+
