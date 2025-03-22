@@ -349,14 +349,26 @@
 		</div>
 	</section>
 	-->
-	<div class="monday-form-container">
-		<iframe 
-			src="https://forms.monday.com/forms/7bd1843198c02c311e6b8592342b1525?r=apse2" 
-			style="width: 100%; height: 600px; border: none;" 
-			title="Monday.com Form"
-			allowfullscreen>
-		</iframe>
-	</div>
+	<section class="bg-0 p-t-60 p-b-60">
+		<div class="container">
+		  <h4 class="t1-b-1 cl-3 m-b-30 text-uppercase">Pay Your Invoice</h4>
+		  <form id="payment-form">
+			<div class="m-b-20">
+			  <input class="size-a-3 t1-m-2 plh-6 cl-6 p-rl-20 bo-1-rad-4 bcl-12 focus-in1"
+					 type="text" name="invoice" id="invoice" placeholder="Enter Invoice Number" required>
+			</div>
+			<div class="m-b-20">
+			  <input class="size-a-3 t1-m-2 plh-6 cl-6 p-rl-20 bo-1-rad-4 bcl-12 focus-in1"
+					 type="number" name="amount" id="amount" placeholder="Enter Amount (in AUD)" required>
+			</div>
+			<button type="submit"
+					class="size-a-15 flex-c-c bg-11 t1-s-2 text-uppercase cl-0 hov-btn1 trans-02 p-rl-15">
+			  Pay Now
+			</button>
+		  </form>
+		</div>
+	  </section>
+	  
 	
 	<!-- Map 
 	<div class="map">
@@ -450,7 +462,25 @@
 		</div>
 	</footer>
 
-
+	<script src="https://js.stripe.com/v3/"></script>
+	<script>
+	document.getElementById("payment-form").addEventListener("submit", async (e) => {
+		e.preventDefault();
+		const invoice = document.getElementById("invoice").value;
+		const amount = document.getElementById("amount").value;
+	
+		const response = await fetch("https://<your-azure-function-endpoint>/create-checkout-session", {
+			method: "POST",
+			headers: {"Content-Type": "application/json"},
+			body: JSON.stringify({ invoice, amount })
+		});
+	
+		const session = await response.json();
+		const stripe = Stripe("pk_test_XXXXXXXXXXXXXXXXXXXX"); // Replace with your Stripe public key
+		await stripe.redirectToCheckout({ sessionId: session.id });
+	});
+	</script>
+	
 <!--===============================================================================================-->	
 	<script src="vendor/jquery/jquery-3.2.1.min.js"></script>
 <!--===============================================================================================-->
